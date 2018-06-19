@@ -31,7 +31,7 @@ shp2 <- left_join(shp, df, by = 'state', copy = TRUE) %>%
 
 lbl <- st_read('data/st_cntrd.shp')
 
-# tmaptools::palette_explorer()
+tmaptools::palette_explorer()
 
 ## plot
 fig <- 
@@ -39,13 +39,12 @@ fig <-
     tm_polygons('year',
             palette = "Set3", n = 20) +
   tm_shape(lbl) +  
-    tm_dots() +
-    tm_text('abbr', size = 0.8) +
+    tm_dots(alpha = 0) +
+    tm_text('abbr', size = 0.6) +
   tm_shape(lbl) +  
-    tm_dots() +
-    tm_text('year', size = 0.8, ymod = -0.6) +
-  tm_layout(main.title = 'Year Juneteenth Recognized',
-            main.title.position = 'center',
+    tm_dots(alpha = 0) +
+    tm_text('year', size = 0.6, ymod = -0.6) +
+  tm_layout(main.title.position = 'center',
             frame = FALSE,
             outer.margins=c(0,0,0,0),
             inner.margins=c(0,0,0,0), asp=0,
