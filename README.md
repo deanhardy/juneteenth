@@ -1,2 +1,2 @@
 # juneteenth
-When states official observed Juneteenth
+Map of legislative years when Juneteenth became officially observed by states.
