@@ -17,17 +17,22 @@ shp <- get_decennial(geography = "state",
                variables = 'P0010001',
                year = 2010, 
                geometry = TRUE,
-               shift_geo = TRUE) %>%
+               shift_geo = FALSE) %>%
   rename(state = NAME) %>%
   dplyr::select(-variable, -value)  
 
 shp2 <- left_join(shp, df, by = 'state', copy = TRUE) %>%
-  group_by(year)
+  group_by(year) %>%
+  st_transform(4326)
 
 ## export shapes to modify centroids in Arc for labeling
 # shp2 %>%
 #   st_centroid() %>%
 #   st_write('data/st_cntrd.shp', driver = 'ESRI Shapefile')
+
+# shp2 %>%
+#   st_transform(4326) %>% 
+#   st_write('data/juneteenth.geojson', driver = 'geojson')
 
 lbl <- st_read('data/st_cntrd.shp')
 
