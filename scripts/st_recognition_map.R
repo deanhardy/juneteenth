@@ -31,7 +31,7 @@ shp2 <- left_join(shp, df, by = 'state', copy = TRUE) %>%
 
 lbl <- st_read('data/st_cntrd.shp')
 
-tmaptools::palette_explorer()
+# tmaptools::palette_explorer()
 
 ## plot
 fig <- 
@@ -43,15 +43,22 @@ fig <-
     tm_text('abbr', size = 0.6) +
   tm_shape(lbl) +  
     tm_dots(alpha = 0) +
-    tm_text('year', size = 0.6, ymod = -0.6) +
-  tm_layout(main.title.position = 'center',
+    tm_text('year', size = 0.6, ymod = -0.5) +
+  tm_layout(main.title = 'Juneteenth State Holiday Legislative Year',
+            main.title.position = 'center',
             frame = FALSE,
             outer.margins=c(0,0,0,0),
             inner.margins=c(0,0,0,0), asp=0,
-            legend.show = FALSE)
-fig
+            legend.show = FALSE) +
+  tm_credits('*Legislative year from the National Juneteenth Observance Foundation')
+# fig
 
 tiff('figures/juneteenth.tiff', res = 300, units = 'in',
      height = 6, width = 8, compression = 'lzw')
+fig
+dev.off()
+
+png('figures/junteenth.png', res = 150, units = 'in',
+    height = 6, width = 8)
 fig
 dev.off()
