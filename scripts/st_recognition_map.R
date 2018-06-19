@@ -24,17 +24,26 @@ shp <- get_decennial(geography = "state",
 shp2 <- left_join(shp, df, by = 'state', copy = TRUE) %>%
   group_by(year)
 
+## export shapes to modify centroids in Arc for labeling
+# shp2 %>%
+#   st_centroid() %>%
+#   st_write('data/st_cntrd.shp', driver = 'ESRI Shapefile')
+
+lbl <- st_read('data/st_cntrd.shp')
+
 # tmaptools::palette_explorer()
 
 ## plot
 fig <- 
   tm_shape(shp2) +
-    tm_fill('year',
+    tm_polygons('year',
             palette = "Set3", n = 20) +
-    tm_text('abbr', size = 0.5, col = 'black', auto.palette.mapping = F) +
-  tm_shape(shp2) +  
-    tm_borders() +
-    tm_text('year', size = 0.5, ymod = -0.5) +
+  tm_shape(lbl) +  
+    tm_dots() +
+    tm_text('abbr', size = 0.8) +
+  tm_shape(lbl) +  
+    tm_dots() +
+    tm_text('year', size = 0.8, ymod = -0.6) +
   tm_layout(main.title = 'Year Juneteenth Recognized',
             main.title.position = 'center',
             frame = FALSE,
