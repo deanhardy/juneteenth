@@ -11,7 +11,7 @@ df <- read.csv('data/data.csv')
 
 ## import state shapefiles
 shp <- get_decennial(geography = "state", 
-                     variables = 'P0010001',
+                     variables = 'P001001',
                      year = 2010, 
                      geometry = TRUE,
                      shift_geo = FALSE) %>%
